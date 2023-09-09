@@ -1,15 +1,24 @@
+from .methods.st_dev import StandardDeviation
+
+
 class Ogun:
     def __init__(self):
-        self.user_id = None
         self.data = None
+        self.method = None
         self.weights = {}
+        self.risk_method = StandardDeviation
 
-    def user(self, user_id):
-        self.user_id = user_id
+    def data(self, data):
+        self.data = data
         return self
 
-    def data(self, array_data):
-        self.data = array_data
+    def using(self, risk_method=None):
+        if risk_method:
+            self.risk_method = risk_method
+        else:
+            raise ValueError(
+                "Please specify a risk calculation method using the 'using' method."
+            )
         return self
 
     def score(self, category, weight):
@@ -17,11 +26,15 @@ class Ogun:
         return self
 
     def get(self):
-        total_score = 0
-        for category, weight in self.weights.items():
-            if category in self.data:
-                total_score += self.data[category] * weight
-        return RiskResult(total_score)
+        if self.risk_method is None:
+            raise ValueError(
+                "Please specify a risk calculation method using the 'using' method."
+            )
+        try:
+            risk_calculator = self.risk_method(self.data, self.weights)
+            return RiskResult(risk_calculator.calculate())
+        except Exception as e:
+            raise RuntimeError(f"An error occurred during risk calculation: {str(e)}")
 
 
 class RiskResult:

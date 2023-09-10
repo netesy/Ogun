@@ -39,7 +39,7 @@ Welcome to the Ogun Library User Guide! This guide will help you understand how 
 
 ## **1. Introduction**
 
-Introduce the Ogun Library, its purpose, and its capabilities.
+The Ogun Library is a versatile risk assessment tool with customization, modularity, and default methods for quantifying risk in various domains.
 
 ## **2. Getting Started**
 
@@ -53,7 +53,62 @@ pip install ogun
 
 ### **Quick Start**
 
-Show a quick example of how to use the library to calculate risk.
+Certainly! Here's a quick example of how to use the Ogun Library for risk assessment:
+
+Suppose you have the following data for a user:
+
+- `account_balance`: 10
+- `account_age`: 5
+- `work_status`: 4
+- `Salary`: 10
+
+You want to assess the user's risk using the default risk calculation method provided by the Ogun Library.
+
+```python
+from ogun import Ogun
+
+# Initialize Ogun
+ogun = Ogun()
+
+# Set the user's data for risk assessment
+data = {
+    "account_balance": 10,
+    "account_age": 5,
+    "work_status": 4,
+    "Salary": 10,
+}
+
+# Use the default risk calculation method
+result = (
+    ogun.data(data)
+    .using()
+    .score("account_balance", 10)
+    .score("account_age", 5)
+    .score("work_status", 4)
+    .score("Salary", 10)
+    .get()
+)
+
+# Print the risk assessment
+print("Risk Rating:", result.rating)
+print("Status:", result.status)
+```
+
+In this example:
+
+1. We import the `Ogun` class from the Ogun Library.
+
+2. We initialize the `Ogun` class by creating an instance called `ogun`.
+
+3. We define the user's data as a dictionary with relevant attributes: `account_balance`, `account_age`, `work_status`, and `Salary`.
+
+4. We use the default risk calculation method by chaining method calls to the `ogun` instance. We specify weights for each data attribute using the `.score()` method.
+
+5. Finally, we call the `.get()` method to perform the risk assessment and obtain the result, which includes the risk rating and status.
+
+6. We print the risk assessment result, including the user's risk rating and status.
+
+This is a basic example of how to use the Ogun Library for risk assessment. You can customize the library further by creating custom filters, custom risk calculation methods, and enhancing default methods to meet your specific needs.
 
 ## **3. Library Overview**
 
@@ -98,6 +153,7 @@ ogun/
 ├── README.md
 ├── CODE_OF_CONDUCT.md
 ├── CONTRIBUTING.md
+├── pyproject.toml
 ├── LICENSE
 ├── setup.py
 ├── requirements.txt
@@ -107,39 +163,50 @@ ogun/
 
 Explanation of the directory structure:
 
-- **ogun/**: The root directory of your library.
+- **ogun/**: The root directory of your Ogun Library.
+
   - **ogun/**: This subdirectory contains the core code of your library.
     - **__init__.py**: An initialization file for the `ogun` package.
     - **filters/**: Subpackage for custom data filters.
       - **__init__.py**: Initialization file for the filters package.
-      - **custom_filters.py**: Contains custom data filter functions.
-      - **other_filters.py**: Additional built-in data filter functions.
-    - **methods/**: Subpackage for custom and enhanced risk calculation methods.
+      - **django_filter.py**: Contains the custom Django ORM filter function.
+    - **methods/**: Subpackage for risk calculation methods.
       - **__init__.py**: Initialization file for the methods package.
-      - **custom_methods.py**: Contains custom risk calculation methods.
-      - **default_methods.py**: Contains default risk calculation methods.
-      - **enhance_methods.py**: Contains enhanced risk calculation methods.
-    - **utils/**: Subpackage for utility functions and helper modules.
-      - **__init__.py**: Initialization file for the utils package.
-      - **helper_functions.py**: Contains utility functions.
-    - **ogun.py**: The main entry point of your library, where the `Ogun` and `RiskResult` classes are defined.
-    - **risk_result.py**: Defines the `RiskResult` class for risk assessment results.
+      - **beta.py**: Implementation of the Beta risk calculation method.
+      - **cvar.py**: Implementation of the Conditional Value at Risk (CVaR) method.
+      - **default.py**: Default risk calculation methods.
+      - **engine.py**: Base class for risk calculation engines.
+      - **sharpe.py**: Implementation of the Sharpe Ratio risk calculation method.
+      - **st_dev.py**: Implementation of the Standard Deviation risk calculation method.
+      - **var.py**: Implementation of the Value at Risk (VaR) risk calculation method.
+    - **ogun.py**: The main entry point of your library, where the `Ogun` class is defined.
+
+  - **docs/**: Directory for documentation files.
+    - **user_guide.md**: A comprehensive user guide explaining library usage and customization.
+
+  - **examples/**: Directory for example code.
+    - **basic.py**: Example code demonstrating basic library usage.
+
   - **tests/**: Directory for unit tests.
     - **__init__.py**: An initialization file for the tests package.
-    - **test_custom_filters.py**: Tests for custom filter functions.
+    - **test_custom_filters.py**: Tests for custom data filters.
     - **test_custom_methods.py**: Tests for custom risk calculation methods.
     - **test_default_methods.py**: Tests for default risk calculation methods.
     - **test_enhance_methods.py**: Tests for enhanced risk calculation methods.
     - **test_ogun.py**: Tests for the core `Ogun` class.
     - **test_utils.py**: Tests for utility functions.
-  - **README.md**: Documentation for your library, including usage instructions and examples.
+
+  - **README.md**: Documentation for your library, including project information and an overview.
+  - **CODE_OF_CONDUCT.md**: Code of conduct for contributors.
+  - **CONTRIBUTING.md**: Guidelines for contributing to the library.
+  - **pyproject.toml**: Configuration file for project dependencies and settings (e.g., for using `poetry`).
   - **LICENSE**: The license for your library (e.g., MIT License).
   - **setup.py**: A script for packaging and distributing your library.
   - **requirements.txt**: List of dependencies required to run your library.
   - **user_guide.md**: Comprehensive user guide with detailed explanations and examples.
   - **.gitignore**: File specifying which files or directories should be ignored by version control (e.g., Git).
 
-This directory structure keeps your library organized, making it easier for users and contributors to understand, extend, and maintain. It separates different components, such as filters, methods, and tests, into distinct subdirectories, promoting modular and maintainable code.
+This directory structure organizes your library into distinct sections, making it easy for users and contributors to navigate and understand. It separates code, documentation, tests, and examples, promoting modularity and maintainability.
 
 ---
 
@@ -459,11 +526,46 @@ Check out Customising RiskResult Class
 
 ## **8. FAQs**
 
-Answer frequently asked questions about the library.
+**1. What is the purpose of the Ogun Library?**
+   - The Ogun Library is designed for risk assessment. It enables users to evaluate and quantify risk in various contexts, industries, and domains.
+
+**2. What types of risk can the Ogun Library assess?**
+   - Ogun can assess a wide range of risks, including financial risk, credit risk, operational risk, and more. Its flexibility allows users to adapt it to specific risk scenarios.
+
+**3. How does the library handle customization?**
+   - Ogun is highly customizable. Users can define their own risk factors, apply custom weights, and create custom risk assessment methods tailored to their needs.
+
+**4. What default risk calculation methods are available?**
+   - Ogun provides default methods like Standard Deviation, Value at Risk (VaR), Conditional Value at Risk (CVaR), Sharpe Ratio, Beta, and more, which can be used as starting points for risk assessment.
+
+**5. Can I extend the library's functionality?**
+   - Yes, the library is designed for extensibility. You can add custom filters, create custom risk calculation methods, and enhance default methods to meet specific use cases.
+
+**6. Is the library suitable for large datasets?**
+   - Yes, Ogun can handle risk assessments for both individual data points and large datasets, making it scalable for various applications.
+
+**7. What types of data sources does the library support?**
+   - Ogun is compatible with various data sources and structures, allowing users to adapt it to their specific data requirements.
+
+**8. Is there documentation available for the library?**
+   - Yes, the library includes comprehensive documentation, including a user guide, to help users understand its capabilities and conduct risk assessments effectively.
+
+**9. How can I ensure the reliability of risk assessment results?**
+   - Ogun incorporates a testing framework to ensure the accuracy and reliability of risk assessment methods.
+
+**10. Is the Ogun Library open-source?**
+   - Yes, the library is open-source and can be used and extended by the community.
+
+**11. How can I contribute to the Ogun Library?**
+   - You can contribute to the library by following the guidelines provided in the CONTRIBUTING.md file in the repository.
+
+**12. Where can I get support or ask questions about the library?**
+   - For support, questions, or discussions, you can refer to the library's GitHub repository.
+
 
 ## **9. Support**
 
-Provide contact information for user support and assistance.
+you can refer to the library's GitHub repository issues
 
 ## **10. Contributing**
 

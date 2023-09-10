@@ -567,7 +567,7 @@ Check out Customising RiskResult Class
 
 ## **9. Support**
 
-you can refer to the library's GitHub repository issues
+you can refer to the library's GitHub repository [issues](https://github.com/netesy/Ogun/issues)
 
 ## **10. Contributing**
 
@@ -575,6 +575,6 @@ We welcome contributions from the community! Please refer to the [Contributing G
 
 ## **11. License**
 
-This project is licensed under the [MIT License](LICENSE).
+This project is licensed under the [Unlicense License](LICENSE).
 
 ---

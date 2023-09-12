@@ -2,6 +2,11 @@
 
 # **Ogun Library**
 
+[![PyPI version](https://img.shields.io/pypi/v/Ogun?style=for-the-badge)](https://pypi.org/project/Ogun/)
+[![PyPi Downloads](https://img.shields.io/pypi/dm/Ogun?style=for-the-badge)](https://pypistats.org/packages/Ogun)
+![Python](https://img.shields.io/pypi/pyversions/Ogun?style=for-the-badge)
+[![License](https://img.shields.io/pypi/l/Ogun.svg?style=for-the-badge)](https://pypi.org/project/Ogun/)
+
 ![Ogun Library Logo](ogun_logo.png)
 
 The Ogun Library is a versatile risk assessment tool designed to quantify risk in various domains, industries, and contexts. Whether you need to assess financial risk, credit risk, or operational risk, Ogun offers customization, modularity, and default methods to meet your specific risk assessment needs

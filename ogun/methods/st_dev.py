@@ -4,6 +4,8 @@ import statistics
 
 # Standard Deviation risk calculation method
 class StandardDeviation(Engine):
-    def calculate(self):
-        data_points = list(self.data.values())
+    def calculate(self) -> float:
+        data_points = list(
+            self.data.values()
+        )  # Assuming self.data is a Dict[str, float]
         return statistics.stdev(data_points)

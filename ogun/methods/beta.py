@@ -3,7 +3,7 @@ import statistics
 
 
 class Beta(Engine):
-    def calculate(self):
+    def calculate(self) -> float:
         portfolio_returns = list(self.data.values())
         benchmark_returns = [0.05, 0.07, 0.03]  # Replace with your benchmark data
         covariance_matrix = self.calculate_covariance_matrix(

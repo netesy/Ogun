@@ -3,7 +3,7 @@ from .engine import Engine
 
 # Conditional Value at Risk (CVaR)
 class CVaR(Engine):
-    def calculate(self):
+    def calculate(self) -> float:
         confidence_level = 0.95
         data_points = list(self.data.values())
         var = self.calculate_risk(method="var")

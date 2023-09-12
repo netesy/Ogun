@@ -3,7 +3,7 @@ from .engine import Engine
 
 # Value at Risk (VaR) risk calculation method
 class VaR(Engine):
-    def calculate(self):
+    def calculate(self) -> float:
         confidence_level = 0.95
         data_points = list(self.data.values())
         portfolio_value = sum(

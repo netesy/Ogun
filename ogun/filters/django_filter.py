@@ -1,4 +1,7 @@
-def django_filter(obj):
+from typing import Dict
+
+
+def django_filter(obj: Model) -> Dict[str, object]:
     # Get the model's fields as a dictionary
     model_dict = obj.__dict__.copy()
 

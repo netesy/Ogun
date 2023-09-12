@@ -3,7 +3,7 @@ import statistics
 
 
 class SharpeRatio(Engine):
-    def calculate(self):
+    def calculate(self) -> float:
         portfolio_returns = list(self.data.values())
         risk_free_rate = 0.03
         excess_returns = [r - risk_free_rate for r in portfolio_returns]

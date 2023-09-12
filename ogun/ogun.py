@@ -1,18 +1,19 @@
-from .methods.st_dev import StandardDeviation
+from typing import Any, Type, Optional
+from ogun.methods.st_dev import StandardDeviation
 
 
 class Ogun:
-    def __init__(self):
+    def __init__(self) -> None:
         self.data = None
         self.method = None
         self.weights = {}
         self.risk_method = StandardDeviation
 
-    def data(self, data):
+    def set_data(self, data: Any) -> "Ogun":
         self.data = data
         return self
 
-    def using(self, risk_method=None):
+    def using(self, risk_method: Optional[Type[StandardDeviation]] = None) -> "Ogun":
         if risk_method:
             self.risk_method = risk_method
         else:
@@ -21,11 +22,11 @@ class Ogun:
             )
         return self
 
-    def score(self, category, weight):
+    def score(self, category: str, weight: float) -> "Ogun":
         self.weights[category] = weight
         return self
 
-    def get(self):
+    def get(self) -> "RiskResult":
         if self.risk_method is None:
             raise ValueError(
                 "Please specify a risk calculation method using the 'using' method."
@@ -38,11 +39,11 @@ class Ogun:
 
 
 class RiskResult:
-    def __init__(self, total_score):
+    def __init__(self, total_score: float) -> None:
         self.total_score = total_score
 
     @property
-    def rating(self):
+    def rating(self) -> str:
         if self.total_score <= 30:
             return "Low Risk"
         elif self.total_score <= 60:
@@ -51,5 +52,5 @@ class RiskResult:
             return "High Risk"
 
     @property
-    def status(self):
+    def status(self) -> str:
         return "Approved" if self.rating == "Low Risk" else "Denied"

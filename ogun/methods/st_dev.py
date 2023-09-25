@@ -1,11 +1,19 @@
-from .engine import Engine
-import statistics
+from .engine import Engine  # Import the `Engine` class from a relative module
+import statistics  # Import the `statistics` module for statistical calculations
 
 
-# Standard Deviation risk calculation method
+# Define a class called `StandardDeviation` that inherits from the `Engine` class
 class StandardDeviation(Engine):
     def calculate(self) -> float:
+        """
+        Calculate the standard deviation as a risk measurement.
+
+        Returns:
+        - float: The calculated standard deviation.
+        """
         data_points = list(
             self.data.values()
-        )  # Assuming self.data is a Dict[str, float]
+        )  # Assuming self.data is a Dict[str, float] containing data points
+
+        # Calculate the standard deviation of the data points using the statistics module
         return statistics.stdev(data_points)

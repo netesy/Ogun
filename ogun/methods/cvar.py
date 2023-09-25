@@ -1,15 +1,31 @@
-from .engine import Engine
+from .engine import Engine  # Import the `Engine` class from a relative module
 
 
-# Conditional Value at Risk (CVaR)
+# Define a class called `CVaR` that inherits from the `Engine` class
 class CVaR(Engine):
     def calculate(self) -> float:
-        confidence_level = 0.95
-        data_points = list(self.data.values())
+        """
+        Calculate Conditional Value at Risk (CVaR) using a specified confidence level.
+
+        Returns:
+        - float: The calculated CVaR.
+        """
+        confidence_level = 0.95  # Define the confidence level for CVaR calculation
+        data_points = list(
+            self.data.values()
+        )  # Extract data points from the data dictionary
+
+        # Calculate Value at Risk (VaR) using the 'var' method
         var = self.calculate_risk(method="var")
+
+        # Calculate CVaR data points by filtering data points below VaR
         cvar_data = [
             data * weight
             for data, weight in zip(data_points, self.weights.values())
             if data < var
         ]
-        return (1 / (1 - confidence_level)) * sum(cvar_data)
+
+        # Calculate CVaR using the formula
+        cvar = (1 / (1 - confidence_level)) * sum(cvar_data)
+
+        return cvar

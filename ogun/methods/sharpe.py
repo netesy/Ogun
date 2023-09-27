@@ -11,6 +11,11 @@ class SharpeRatio(Engine):
         Returns:
         - float: The calculated Sharpe Ratio.
         """
+        # None safety checks
+        if data is None:
+            raise ValueError("Data cannot be None.")
+        if weights is None:
+            raise ValueError("Weights cannot be None.")
         portfolio_returns = list(
             self.data.values()
         )  # Extract portfolio returns from the data

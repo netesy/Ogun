@@ -15,6 +15,11 @@ class Engine:
         - data (Any): The data used by the engine.
         - weights (Dict[str, float]): A dictionary of category weights.
         """
+        # None safety checks
+        if data is None:
+            raise ValueError("Data cannot be None.")
+        if weights is None:
+            raise ValueError("Weights cannot be None.")
         self.data = data
         self.weights = weights
 

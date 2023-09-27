@@ -10,6 +10,11 @@ class Default(Engine):
         Returns:
         - float: The total score calculated using the default method.
         """
+        # None safety checks
+        if data is None:
+            raise ValueError("Data cannot be None.")
+        if weights is None:
+            raise ValueError("Weights cannot be None.")
         total_score = 0
 
         # Iterate through category-weight pairs in the weights dictionary

@@ -11,6 +11,11 @@ class StandardDeviation(Engine):
         Returns:
         - float: The calculated standard deviation.
         """
+        # None safety checks
+        if data is None:
+            raise ValueError("Data cannot be None.")
+        if weights is None:
+            raise ValueError("Weights cannot be None.")
         data_points = list(
             self.data.values()
         )  # Assuming self.data is a Dict[str, float] containing data points

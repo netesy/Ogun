@@ -10,6 +10,11 @@ class VaR(Engine):
         Returns:
         - float: The calculated VaR.
         """
+        # None safety checks
+        if data is None:
+            raise ValueError("Data cannot be None.")
+        if weights is None:
+            raise ValueError("Weights cannot be None.")
         confidence_level = 0.95  # Define the confidence level for VaR calculation
         data_points = list(
             self.data.values()

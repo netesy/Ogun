@@ -11,6 +11,11 @@ class Beta(Engine):
         Returns:
         - float: The calculated beta.
         """
+        # None safety checks
+        if data is None:
+            raise ValueError("Data cannot be None.")
+        if weights is None:
+            raise ValueError("Weights cannot be None.")
         # Extract portfolio returns from the data dictionary
         portfolio_returns = list(self.data.values())
 
